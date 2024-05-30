@@ -1,12 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:learnit/ForgotPassword.dart';
-import 'package:learnit/dashboard.dart';
-import 'package:learnit/home.dart';
-import 'package:learnit/login.dart';
-import 'package:learnit/register.dart';
+import 'package:learnit/screens/ForgotPassword.dart';
+import 'package:learnit/screens/dashboard.dart';
+import 'package:learnit/screens/home.dart';
+import 'package:learnit/screens/login.dart';
+import 'package:learnit/screens/register.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:learnit/register_success.dart';
+import 'package:learnit/screens/register_success.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -45,7 +45,7 @@ class MyApp extends StatelessWidget {
       // IF USER LOGGED IN
       home: (FirebaseAuth.instance.currentUser != null)
           ? Dashboard()
-          : LoginPage(),
+          : HomePage(),
     );
   }
 }

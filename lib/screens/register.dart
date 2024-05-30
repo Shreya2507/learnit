@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -41,6 +42,11 @@ class _RegisterPageState extends State<RegisterPage> {
         log("User created");
         if (userCredential.user != null) {
           Navigator.pushNamed(context, '/registerSuccess');
+          AudioPlayer().play(AssetSource('onLogin.mp3'));
+          userCredential = await FirebaseAuth.instance
+              .signInWithEmailAndPassword(email: email, password: password);
+
+          log("Logged in");
         }
       } on FirebaseAuthException catch (e) {
         log(e.code.toString());
@@ -63,6 +69,17 @@ class _RegisterPageState extends State<RegisterPage> {
             )));
       }
     }
+  }
+
+  bool showPass = true;
+  bool showConfirmPass = true;
+
+  void togglePass() {
+    showPass = !showPass;
+  }
+
+  void toggleConfirmPass() {
+    showConfirmPass = !showConfirmPass;
   }
 
   @override
@@ -98,6 +115,15 @@ class _RegisterPageState extends State<RegisterPage> {
                   child: TextFormField(
                     controller: nameController,
                     decoration: InputDecoration(
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: const BorderRadius.all(
+                          const Radius.circular(25.0),
+                        ),
+                        borderSide: BorderSide(
+                          width: 3,
+                          color: Color.fromRGBO(131, 193, 60, 1),
+                        ),
+                      ),
                       border: OutlineInputBorder(
                         borderRadius: const BorderRadius.all(
                           const Radius.circular(25.0),
@@ -137,6 +163,15 @@ class _RegisterPageState extends State<RegisterPage> {
                 child: TextFormField(
                   controller: emailController,
                   decoration: InputDecoration(
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: const BorderRadius.all(
+                        const Radius.circular(25.0),
+                      ),
+                      borderSide: BorderSide(
+                        width: 3,
+                        color: Color.fromRGBO(131, 193, 60, 1),
+                      ),
+                    ),
                     border: OutlineInputBorder(
                       borderRadius: const BorderRadius.all(
                         const Radius.circular(25.0),
@@ -174,8 +209,18 @@ class _RegisterPageState extends State<RegisterPage> {
               SizedBox(
                 width: 360,
                 child: TextFormField(
+                  obscureText: showPass,
                   controller: passwordController,
                   decoration: InputDecoration(
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: const BorderRadius.all(
+                          const Radius.circular(25.0),
+                        ),
+                        borderSide: BorderSide(
+                          width: 3,
+                          color: Color.fromRGBO(131, 193, 60, 1),
+                        ),
+                      ),
                       border: OutlineInputBorder(
                         borderRadius: const BorderRadius.all(
                           const Radius.circular(25.0),
@@ -194,9 +239,14 @@ class _RegisterPageState extends State<RegisterPage> {
                       prefixIcon:
                           IconButton(onPressed: () {}, icon: Icon(Icons.lock)),
                       suffixIcon: IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            setState(() {
+                              togglePass();
+                            });
+                          },
                           icon: Padding(
-                            padding: const EdgeInsets.only(right: 20.0),
+                            padding:
+                                const EdgeInsets.only(right: 20.0, left: 20.0),
                             child: Icon(Icons.remove_red_eye),
                           ))),
                   validator: (value) {
@@ -220,8 +270,18 @@ class _RegisterPageState extends State<RegisterPage> {
               SizedBox(
                 width: 360,
                 child: TextFormField(
+                  obscureText: showConfirmPass,
                   controller: confirmPasswordController,
                   decoration: InputDecoration(
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: const BorderRadius.all(
+                          const Radius.circular(25.0),
+                        ),
+                        borderSide: BorderSide(
+                          width: 3,
+                          color: Color.fromRGBO(131, 193, 60, 1),
+                        ),
+                      ),
                       border: OutlineInputBorder(
                         borderRadius: const BorderRadius.all(
                           const Radius.circular(25.0),
@@ -240,9 +300,12 @@ class _RegisterPageState extends State<RegisterPage> {
                       prefixIcon:
                           IconButton(onPressed: () {}, icon: Icon(Icons.lock)),
                       suffixIcon: IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            toggleConfirmPass();
+                          },
                           icon: Padding(
-                            padding: const EdgeInsets.only(right: 20.0),
+                            padding:
+                                const EdgeInsets.only(right: 20.0, left: 20.0),
                             child: Icon(Icons.remove_red_eye),
                           ))),
                   validator: (value) {

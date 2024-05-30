@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:learnit/login.dart';
+import 'package:learnit/screens/login.dart';
 
 class RegisterSuccess extends StatefulWidget {
   const RegisterSuccess({super.key});
@@ -32,7 +32,7 @@ class _RegisterSuccessState extends State<RegisterSuccess> {
               ),
               Text(
                 "Welcome aboard",
-                style: TextStyle(fontSize: 20),
+                style: TextStyle(fontSize: 25),
               ),
               SizedBox(
                 height: 60,
@@ -42,17 +42,28 @@ class _RegisterSuccessState extends State<RegisterSuccess> {
                 height: 250,
               ),
               SizedBox(
-                height: 60,
+                height: 10,
+              ),
+              Text(
+                "Just a few more steps",
+                style: TextStyle(fontSize: 20),
+              ),
+              Text(
+                "so we can get you settled in",
+                style: TextStyle(fontSize: 20),
               ),
               SizedBox(
-                width: 340,
+                height: 40,
+              ),
+              SizedBox(
+                width: 220,
                 height: 55,
                 child: ElevatedButton(
                   onPressed: () {
                     Navigator.pushNamed(context, '/login');
                   },
                   child: Text(
-                    "LOG IN",
+                    "Continue",
                     style: TextStyle(color: Colors.white, fontSize: 20),
                   ),
                   style: ElevatedButton.styleFrom(

@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:audioplayers/audioplayers.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -50,6 +51,7 @@ class _LoginPageState extends State<LoginPage> {
             .signInWithEmailAndPassword(email: email, password: password);
 
         log("Logged in");
+        AudioPlayer().play(AssetSource('onLogin.mp3'));
         if (userCredential.user != null) {
           //removes all previous screens from stack
           Navigator.popUntil(context, (route) => route.isFirst);
@@ -81,18 +83,24 @@ class _LoginPageState extends State<LoginPage> {
     }
   }
 
+  bool showPassword = true;
+
+  void togglePassword() {
+    showPassword = !showPassword;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Padding(
-          padding: const EdgeInsets.only(left: 100.0),
-          child: Text(
-            "Sign In",
-            style: TextStyle(color: Color.fromRGBO(77, 120, 31, 1)),
+          // title: Padding(
+          //   padding: const EdgeInsets.only(left: 100.0),
+          //   child: Text(
+          //     "Sign In",
+          //     style: TextStyle(color: Color.fromRGBO(77, 120, 31, 1)),
+          //   ),
+          // ),
           ),
-        ),
-      ),
       body: SingleChildScrollView(
         child: Center(
           child: Column(
@@ -116,6 +124,15 @@ class _LoginPageState extends State<LoginPage> {
                         child: TextFormField(
                           controller: emailController,
                           decoration: InputDecoration(
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: const BorderRadius.all(
+                                const Radius.circular(25.0),
+                              ),
+                              borderSide: BorderSide(
+                                width: 3,
+                                color: Color.fromRGBO(131, 193, 60, 1),
+                              ),
+                            ),
                             border: OutlineInputBorder(
                               borderRadius: const BorderRadius.all(
                                 const Radius.circular(25.0),
@@ -164,6 +181,15 @@ class _LoginPageState extends State<LoginPage> {
                                   style: BorderStyle.none,
                                 ),
                               ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: const BorderRadius.all(
+                                  const Radius.circular(25.0),
+                                ),
+                                borderSide: BorderSide(
+                                  width: 3,
+                                  color: Color.fromRGBO(131, 193, 60, 1),
+                                ),
+                              ),
                               fillColor: Color.fromARGB(11, 22, 22, 22),
                               filled: true,
                               hintText: "Password",
@@ -173,12 +199,17 @@ class _LoginPageState extends State<LoginPage> {
                               prefixIcon: IconButton(
                                   onPressed: () {}, icon: Icon(Icons.lock)),
                               suffixIcon: IconButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    setState(() {
+                                      togglePassword();
+                                    });
+                                  },
                                   icon: Padding(
-                                    padding: const EdgeInsets.only(right: 20.0),
+                                    padding: const EdgeInsets.only(
+                                        right: 20.0, left: 20.0),
                                     child: Icon(Icons.remove_red_eye),
                                   ))),
-                          obscureText: true,
+                          obscureText: showPassword,
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Please enter your password';

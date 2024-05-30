@@ -15,14 +15,14 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends State<Dashboard> {
   // final _audioPlayer = AudioPlayer();
-  AudioCache _audioPlayer = AudioCache();
+  // AudioCache _audioPlayer = AudioCache();
 
   void logout() async {
     await FirebaseAuth.instance.signOut();
     //removes all previous screens from stack
     Navigator.popUntil(context, (route) => route.isFirst);
     //keep only dashboard screen , we can't go back to login screen from this
-    Navigator.pushReplacementNamed(context, '/login');
+    Navigator.pushReplacementNamed(context, '/');
   }
 
   final Map<String, bool> score = {};
@@ -79,25 +79,25 @@ class _DashboardState extends State<Dashboard> {
             }),
         body: SingleChildScrollView(
           child: Column(children: [
-            // Center(
-            //   child: Text(
-            //     "DASHBOARD",
-            //     style: TextStyle(fontSize: 30),
-            //   ),
-            // ),
-            // SizedBox(
-            //   height: 20,
-            // ),
-            // IconButton(
-            //   onPressed: () {
-            //     logout();
-            //   },
-            //   icon: Icon(Icons.logout),
-            //   iconSize: 40,
-            // ),
-            // SizedBox(
-            //   height: 50,
-            // ),
+            Center(
+              child: Text(
+                "DASHBOARD",
+                style: TextStyle(fontSize: 30),
+              ),
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            IconButton(
+              onPressed: () {
+                logout();
+              },
+              icon: Icon(Icons.logout),
+              iconSize: 40,
+            ),
+            SizedBox(
+              height: 50,
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -190,7 +190,8 @@ class _DashboardState extends State<Dashboard> {
         setState(() {
           score[choices[emoji]] = true;
           log("dropped correctly");
-          _audioPlayer.load('assets/audios/success.mp3');
+          AudioPlayer().play(AssetSource('success.mp3'));
+          // _audioPlayer.load('assets/audios/success.mp3');
         });
 
         // }

@@ -63,7 +63,8 @@ flutter:
   assets:
     - assets/images/cactus.png
     - assets/images/register.png
-    - assets/audios/success.mp3
+    - assets/success.mp3
+    - assets/onLogin.mp3
     - assets/dragGame/Carrot.png
     - assets/dragGame/Donut.png
     - assets/dragGame/Fried Eggs.png
