@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:audioplayers/audioplayers.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -51,12 +52,16 @@ class _LoginPageState extends State<LoginPage> {
             .signInWithEmailAndPassword(email: email, password: password);
 
         log("Logged in");
+        CollectionReference user =
+            FirebaseFirestore.instance.collection('learnitUsers');
+        Stream abc = user.doc(email).snapshots();
+
         AudioPlayer().play(AssetSource('onLogin.mp3'));
         if (userCredential.user != null) {
           //removes all previous screens from stack
           Navigator.popUntil(context, (route) => route.isFirst);
           //keep only dashboard screen , we can't go back to login screen from this
-          Navigator.pushReplacementNamed(context, '/dashboard');
+          Navigator.pushReplacementNamed(context, '/dailyStreak');
         }
       } on FirebaseAuthException catch (e) {
         log(e.code.toString());

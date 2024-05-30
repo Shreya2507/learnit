@@ -60,7 +60,11 @@ class _RegisterSuccessState extends State<RegisterSuccess> {
                 height: 55,
                 child: ElevatedButton(
                   onPressed: () {
-                    Navigator.pushNamed(context, '/login');
+                    //removes all previous screens from stack
+                    Navigator.popUntil(context, (route) => route.isFirst);
+                    //keep only dashboard screen , we can't go back to login screen from this
+                    Navigator.pushReplacementNamed(
+                        context, '/languageSelector');
                   },
                   child: Text(
                     "Continue",

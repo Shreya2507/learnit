@@ -1,9 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:learnit/screens/ForgotPassword.dart';
+import 'package:learnit/screens/daily_streak.dart';
 import 'package:learnit/screens/dashboard.dart';
 import 'package:learnit/screens/home.dart';
 import 'package:learnit/screens/login.dart';
+import 'package:learnit/screens/native-language-selector.dart';
 import 'package:learnit/screens/register.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:learnit/screens/register_success.dart';
@@ -37,6 +39,9 @@ class MyApp extends StatelessWidget {
         '/registerSuccess': (context) => RegisterSuccess(),
         '/dashboard': (context) => Dashboard(),
         '/forgotPassword': (context) => ForgotPassword(),
+
+        '/languageSelector': (context) => LanguageSelector(),
+        '/dailyStreak': (context) => DailyStreak()
       },
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',

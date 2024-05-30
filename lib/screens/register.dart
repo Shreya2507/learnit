@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'package:audioplayers/audioplayers.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -24,6 +25,7 @@ class _RegisterPageState extends State<RegisterPage> {
     String email = emailController.text.trim();
     String password = passwordController.text.trim();
     String confirmPassword = confirmPasswordController.text.trim();
+    // int streak = 1;
 
     if (name == '' || email == '' || password == '' || confirmPassword == '') {
       log("Please fill all details");
