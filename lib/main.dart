@@ -40,12 +40,12 @@ class MyApp extends StatelessWidget {
       },
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
-      home: HomePage(),
+      // home: HomePage(),
 
-      //IF USER LOGGED IN
-      // home: (FirebaseAuth.instance.currentUser != null)
-      //     ? HomePage()
-      //     : LoginPage(),
+      // IF USER LOGGED IN
+      home: (FirebaseAuth.instance.currentUser != null)
+          ? Dashboard()
+          : LoginPage(),
     );
   }
 }
