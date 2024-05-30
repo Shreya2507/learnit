@@ -80,7 +80,7 @@ class _DailyStreakState extends State<DailyStreak> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Color.fromRGBO(131, 193, 60, 1),
+        // backgroundColor: Color.fromRGBO(131, 193, 60, 1),
         toolbarHeight: 100,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -230,7 +230,10 @@ class _DailyStreakState extends State<DailyStreak> {
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: ElevatedButton(
-                  onPressed: _onPunchButtonPressed,
+                  onPressed: () {
+                    // Navigator.popUntil(context, (route) => route.isFirst);
+                    Navigator.pushReplacementNamed(context, '/dashboard');
+                  },
                   child: Text(
                     'Continue',
                     style: TextStyle(color: Colors.white),

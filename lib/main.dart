@@ -1,14 +1,22 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:learnit/gameScreens/FlashcardScreen.dart';
+import 'package:learnit/gameScreens/MyHomePage.dart';
+import 'package:learnit/gameScreens/QuizProvider.dart';
+import 'package:learnit/gameScreens/word_match_provider.dart';
+import 'package:learnit/screens/AnimalMatchGame%20.dart';
 import 'package:learnit/screens/ForgotPassword.dart';
 import 'package:learnit/screens/daily_streak.dart';
 import 'package:learnit/screens/dashboard.dart';
-import 'package:learnit/screens/home.dart';
+
+import 'package:learnit/screens/getStarted.dart';
 import 'package:learnit/screens/login.dart';
+import 'package:learnit/screens/NatureMatchGame.dart';
 import 'package:learnit/screens/native-language-selector.dart';
 import 'package:learnit/screens/register.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:learnit/screens/register_success.dart';
+import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,7 +30,15 @@ void main() async {
       projectId: "learnit-2f459", //paste your project id here
     ),
   );
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => WordMatchProvider()),
+        ChangeNotifierProvider(create: (_) => QuizProvider()),
+      ],
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -33,7 +49,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       initialRoute: '/',
       routes: {
-        // '/': (context) => HomePage(),
+        '/getStarted': (context) => GetStarted(),
         '/login': (context) => LoginPage(),
         '/register': (context) => RegisterPage(),
         '/registerSuccess': (context) => RegisterSuccess(),
@@ -41,7 +57,16 @@ class MyApp extends StatelessWidget {
         '/forgotPassword': (context) => ForgotPassword(),
 
         '/languageSelector': (context) => LanguageSelector(),
-        '/dailyStreak': (context) => DailyStreak()
+        '/dailyStreak': (context) => DailyStreak(),
+
+        '/myHomePage': (context) => MyHomePage(),
+        '/natureMatchGame': (context) => NatureMatchGameAnimals(),
+        '/animalMatchGameAnimals': (context) => AnimalMatchGame(),
+        // '/cityMatchGameAnimals': (context) => CityMatchGameAnimals(),
+        '/natureGames': (context) => FlashcardScreen(category: 'Basics'),
+        '/animalGames': (context) => FlashcardScreen(category: 'Food'),
+
+        // WelcomeScreen(),
       },
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
@@ -50,7 +75,7 @@ class MyApp extends StatelessWidget {
       // IF USER LOGGED IN
       home: (FirebaseAuth.instance.currentUser != null)
           ? Dashboard()
-          : HomePage(),
+          : GetStarted(),
     );
   }
 }
