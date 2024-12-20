@@ -1,4 +1,4 @@
-# learnit - A language learning app
+# Learnit - A language learning app
 -- Tools Used - Flutter, Firebase
 
 
